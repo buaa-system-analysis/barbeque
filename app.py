@@ -109,7 +109,7 @@ def user_edit_info():
     data = request.form
     try:
         code = 100
-        flag = editInfo(userID=data['userID'], introduction=data['introduction'], organization='organization')
+        flag = editInfo(userID=data['userID'], introduction=data['introduction'], organization=data['organization'])
         if not flag:
             code = 106
         ans = {
