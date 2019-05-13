@@ -53,7 +53,7 @@ python app.py
 | scholar_edit | /api/scholar/edit | int scholarID <br> string name <br> string organization <br> string resourceField | bool flag | 100-正常 <br> 401-编辑学者失败 |
 | scholar_auth | /api/scholar/auth | int userID <br> string email | bool flag | 100-正常 <br> 402-学者认证失败 |
 | scholar_manage | /api/scholar/manage | int userID <br> int cmd <br> double newPrice | bool flag | 100-正常 <br> 403-资源管理操作失败 |
-| search_search | /api/search/search | string category <br> string keyword | list list[{"item": int, "scholar": int}, ...] | 100-正常 <br> 501-搜索论文失败 |
+| search_paper | /api/search/paper | string keyword | list result[{"_id": int, "title": string, "authors": string[], "abstract": string, "publishment": string, "citation": int, "field": string[], "price": double, "fulltextURL": string}, ...] | 100-正常 <br> 501-论文搜索结果为空 |
 | collection_subscribe | /api/collection/subscribe | int userID <br> int scholarID <br> bool cmd（关注为True，取关为False） | bool flag | 100-正常 <br> 601-关注/取关失败 |
 | collection_paper | /api/collection/paper | int userID <br> int paperListID <br> int cmd（1为添加，0为删除） <br> int paperID | bool flag | 100-正常 <br> 602-添加/收藏文献失败 |
 | collection_manage | /api/collection/manage | int userID <br> int paperListID <br> int cmd（1为添加文献列表，2为删除文献列表，3为收藏文献列表） <br> string name（）cmd不为1时，该字段为'' | bool flag | 100-正常 <br> 603-文献管理操作失败 |
@@ -78,9 +78,7 @@ python app.py
 | 401 | 编辑学者失败 |
 | 402 | 学者认证失败 |
 | 403 | 资源管理操作失败 |
-| 501 | 搜索论文失败 |
+| 501 | 论文搜索结果为空 |
 | 601 | 关注/取关失败 |
 | 602 | 添加/收藏文献失败 |
 | 603 | 文献管理操作失败 |
-
-

@@ -12,7 +12,7 @@ from UserControl import login, register, find, editInfo, changePassword
 from PaperControl import purchase, download
 from ResourceControl import comment
 from ScholarControl import editScholarInfo, authenticate, manageResource
-from SearchControl import search
+from SearchControl import searchPaper
 from CollectionControl import subscribe, manageCollection, collectPaper
 
 
@@ -272,19 +272,19 @@ def scholar_manage():
     return json.dumps(ans)
 
 
-@app.route("/api/search/search", methods=['POST'])
-def search_search():
+@app.route("/api/search/paper", methods=['POST'])
+def search_paper(keyword):
     data = request.form
     try:
         code = 100
-        list = search(category=data['category'], keyword=data['keyword'])
-        if not list:
+        result = searchPaper(data['keyword'])['result']
+        if not data:
             code = 501
         ans = {
             "code": code,  # 状态码
             "msg": "OK",
             "data": {
-                "list": list,
+                "result": result
             }
         }
     except Exception:
