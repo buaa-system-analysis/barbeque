@@ -14,12 +14,23 @@ from ResourceControl import comment
 from ScholarControl import editScholarInfo, authenticate, manageResource
 from SearchControl import searchPaper
 from CollectionControl import subscribe, manageCollection, collectPaper
+import pymongo
+import time
+
+myclient = pymongo.MongoClient('mongodb://106.14.150.33:27017')
+mydb = myclient["test"]
+logcol = mydb['requestLog']
 
 
 app = Flask(__name__)
 CORS(app, supports_credentials=True)
 
 PORT = 5015
+
+
+def write_log(data, ans):
+    log = {'time': time.time(), 'data': data, 'ans': ans}
+    logcol.insert_one(log)
 
 
 def error():
@@ -59,6 +70,8 @@ def user_login():
     except Exception:
         ans = error()
 
+    write_log(data, ans)
+
     return json.dumps(ans)
 
 
@@ -79,6 +92,8 @@ def user_register():
         }
     except Exception:
         ans = error()
+
+    write_log(data, ans)
 
     return json.dumps(ans)
 
@@ -101,6 +116,8 @@ def user_find():
     except Exception:
         ans = error()
 
+    write_log(data, ans)
+
     return json.dumps(ans)
 
 
@@ -121,6 +138,8 @@ def user_edit_info():
         }
     except Exception:
         ans = error()
+
+    write_log(data, ans)
 
     return json.dumps(ans)
 
@@ -143,6 +162,8 @@ def user_change_pwd():
     except Exception:
         ans = error()
 
+    write_log(data, ans)
+
     return json.dumps(ans)
 
 
@@ -163,6 +184,8 @@ def paper_purchase():
         }
     except Exception:
         ans = error()
+
+    write_log(data, ans)
 
     return json.dumps(ans)
 
@@ -185,6 +208,8 @@ def user_download():
     except Exception:
         ans = error()
 
+    write_log(data, ans)
+
     return json.dumps(ans)
 
 
@@ -205,6 +230,8 @@ def resource_comment():
         }
     except Exception:
         ans = error()
+
+    write_log(data, ans)
 
     return json.dumps(ans)
 
@@ -248,6 +275,8 @@ def scholar_auth():
     except Exception:
         ans = error()
 
+    write_log(data, ans)
+
     return json.dumps(ans)
 
 
@@ -268,6 +297,8 @@ def scholar_manage():
         }
     except Exception:
         ans = error()
+
+    write_log(data, ans)
 
     return json.dumps(ans)
 
@@ -290,6 +321,8 @@ def search_paper():
     except Exception:
         ans = error()
 
+    write_log(data, ans)
+
     return json.dumps(ans)
 
 
@@ -310,6 +343,8 @@ def collection_subscribe():
         }
     except Exception:
         ans = error()
+
+    write_log(data, ans)
 
     return json.dumps(ans)
 
@@ -332,6 +367,8 @@ def collection_paper():
     except Exception:
         ans = error()
 
+    write_log(data, ans)
+
     return json.dumps(ans)
 
 
@@ -353,6 +390,8 @@ def collection_manage():
     except Exception:
         ans = error()
 
+    write_log(data, ans)
+    
     return json.dumps(ans)
 
 if __name__ == "__main__":
