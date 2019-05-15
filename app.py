@@ -35,7 +35,7 @@ def write_log(data, ans):
 
 def error():
     dic = {
-        "code": 0,  # 状态码
+        "code": 0, 
         "msg": "ERROR",
         "data": {
         }
@@ -391,7 +391,7 @@ def collection_manage():
         ans = error()
 
     write_log(data, ans)
-    
+
     return json.dumps(ans)
 
 if __name__ == "__main__":
