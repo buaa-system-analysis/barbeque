@@ -4,7 +4,7 @@ from flask import request
 from flask_cors import CORS
 import json
 from UserControl import login, register, find, editInfo, changePassword
-from PaperControl import purchase, download
+from PaperControl import purchase, downloads
 from ResourceControl import comment
 from ScholarControl import editScholarInfo, authenticate, manageResource
 from SearchControl import searchPaper
@@ -45,7 +45,7 @@ def show_web():
 
 @app.route("/api/user/login", methods=['POST'])
 def user_login():
-    data = json.load(request.data)
+    data = json.loads(request.data)
     try:
         code = 100
         userID = login(username=data['username'], password=data['password'])
@@ -72,7 +72,7 @@ def user_login():
 
 @app.route("/api/user/register", methods=['POST'])
 def user_register():
-    data = json.load(request.data)
+    data = json.loads(request.data)
     try:
         code = 100
         userID = register(username=data['username'], password=data['password'], email=data['email'])
@@ -95,7 +95,7 @@ def user_register():
 
 @app.route("/api/user/find", methods=['POST'])
 def user_find():
-    data = json.load(request.data)
+    data = json.loads(request.data)
     try:
         code = 100
         user = find(userID=data['userID'])
@@ -118,7 +118,7 @@ def user_find():
 
 @app.route("/api/user/edit_info", methods=['POST'])
 def user_edit_info():
-    data = json.load(request.data)
+    data = json.loads(request.data)
     try:
         code = 100
         flag = editInfo(userID=data['userID'], introduction=data['introduction'], organization=data['organization'])
@@ -141,7 +141,7 @@ def user_edit_info():
 
 @app.route("/api/user/change_pwd", methods=['POST'])
 def user_change_pwd():
-    data = json.load(request.data)
+    data = json.loads(request.data)
     try:
         code = 100
         flag = changePassword(userID=data['userID'], oldPassword=data['oldPassword'], newPassword='oldPassword')
@@ -164,7 +164,7 @@ def user_change_pwd():
 
 @app.route("/api/paper/purchase", methods=['POST'])
 def paper_purchase():
-    data = json.load(request.data)
+    data = json.loads(request.data)
     try:
         code = 100
         flag = purchase(userID=data['userID'], paperID=data['paperID'])
@@ -185,12 +185,12 @@ def paper_purchase():
     return json.dumps(ans)
 
 
-@app.route("/api/user/download", methods=['POST'])
-def user_download():
-    data = json.load(request.data)
+@app.route("/api/user/downloads", methods=['POST'])
+def user_downloads():
+    data = json.loads(request.data)
     try:
         code = 100
-        url = download(paperID=data['paperID'])
+        url = downloads(paperID=data['paperID'])
         if not url:
             code = 202
         ans = {
@@ -210,7 +210,7 @@ def user_download():
 
 @app.route("/api/resource/comment", methods=['POST'])
 def resource_comment():
-    data = json.load(request.data)
+    data = json.loads(request.data)
     try:
         code = 100
         flag = comment(userID=data['userID'], resourceID=data['resourceID'], content=data['content'])
@@ -233,7 +233,7 @@ def resource_comment():
 
 @app.route("/api/scholar/edit", methods=['POST'])
 def scholar_edit():
-    data = json.load(request.data)
+    data = json.loads(request.data)
     try:
         code = 100
         flag = editScholarInfo(scholarID=data['scholarID'], name=data['name'], organization=data['organization'], resourceField=data['resourceField'])
@@ -254,7 +254,7 @@ def scholar_edit():
 
 @app.route("/api/scholar/auth", methods=['POST'])
 def scholar_auth():
-    data = json.load(request.data)
+    data = json.loads(request.data)
     try:
         code = 100
         flag = authenticate(userID=data['userID'], email=data['email'])
@@ -277,7 +277,7 @@ def scholar_auth():
 
 @app.route("/api/scholar/manage", methods=['POST'])
 def scholar_manage():
-    data = json.load(request.data)
+    data = json.loads(request.data)
     try:
         code = 100
         flag = manageResource(resourceID=data['resourceID'], cmd=data['cmd'], newPrice=data['newPrice'])
@@ -300,7 +300,7 @@ def scholar_manage():
 
 @app.route("/api/search/paper", methods=['POST'])
 def search_paper():
-    data = json.load(request.data)
+    data = json.loads(request.data)
     try:
         code = 100
         result = searchPaper(data['keyword'])['result']
@@ -323,7 +323,7 @@ def search_paper():
 
 @app.route("/api/collection/subscribe", methods=['POST'])
 def collection_subscribe():
-    data = json.load(request.data)
+    data = json.loads(request.data)
     try:
         code = 100
         flag = subscribe(userID=data['userID'], scholarID=data['scholarID'], cmd=data['cmd'])
@@ -346,7 +346,7 @@ def collection_subscribe():
 
 @app.route("/api/collection/paper", methods=['POST'])
 def collection_paper():
-    data = json.load(request.data)
+    data = json.loads(request.data)
     try:
         code = 100
         flag = collectPaper(userID=data['userID'], paperListID=data['paperListID'], cmd=data['cmd'], paperID=data['paperID'])
@@ -369,7 +369,7 @@ def collection_paper():
 
 @app.route("/api/collection/manage", methods=['POST'])
 def collection_manage():
-    data = json.load(request.data)
+    data = json.loads(request.data)
     try:
         code = 100
         flag = manageCollection(userID=data['userID'], paperListID=data['paperListID'], cmd=data['cmd'], name=data['name'])
