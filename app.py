@@ -1,13 +1,8 @@
-from contextlib import redirect_stdout, redirect_stderr
-from io import StringIO
 from flask import Flask
 from flask import render_template
 from flask import request
-from flask import jsonify
 from flask_cors import CORS
-import sys
 import json
-import os.path
 from UserControl import login, register, find, editInfo, changePassword
 from PaperControl import purchase, download
 from ResourceControl import comment
@@ -35,7 +30,7 @@ def write_log(data, ans):
 
 def error():
     dic = {
-        "code": 0, 
+        "code": 0,
         "msg": "ERROR",
         "data": {
         }
