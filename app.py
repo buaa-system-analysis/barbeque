@@ -4,9 +4,9 @@ from flask import request
 from flask_cors import CORS
 import json
 from UserControl import login, register, find, editInfo, changePassword
-from PaperControl import purchase, downloads
+from PaperControl import purchase, download
 from ResourceControl import comment
-from ScholarControl import editScholarInfo, authenticate, manageResource
+# from ScholarControl import editScholarInfo, authenticate, manageResource
 from SearchControl import searchPaper
 from CollectionControl import subscribe, manageCollection, collectPaper
 import pymongo
@@ -190,7 +190,7 @@ def user_downloads():
     data = json.loads(request.data)
     try:
         code = 100
-        url = downloads(paperID=data['paperID'])
+        url = download(paperID=data['paperID'])
         if not url:
             code = 202
         ans = {
@@ -230,7 +230,7 @@ def resource_comment():
 
     return json.dumps(ans)
 
-
+'''
 @app.route("/api/scholar/edit", methods=['POST'])
 def scholar_edit():
     data = json.loads(request.data)
@@ -296,14 +296,14 @@ def scholar_manage():
     write_log(data, ans)
 
     return json.dumps(ans)
-
+'''
 
 @app.route("/api/search/paper", methods=['POST'])
 def search_paper():
     data = json.loads(request.data)
     try:
         code = 100
-        result = searchPaper(data['keyword'])['result']
+        result = searchPaper(data['keyword'])
         if not data:
             code = 501
         ans = {
@@ -313,7 +313,7 @@ def search_paper():
                 "result": result
             }
         }
-    except Exception:
+    except Exception, e:
         ans = error()
 
     write_log(data, ans)
