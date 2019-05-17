@@ -6,7 +6,7 @@ import json
 from UserControl import login, register, find, editInfo, changePassword
 from PaperControl import purchase, download
 from ResourceControl import comment
-# from ScholarControl import editScholarInfo, authenticate, manageResource
+from ScholarControl import editScholarInfo, authenticate, manageResource
 from SearchControl import searchPaper
 from CollectionControl import subscribe, manageCollection, collectPaper
 import pymongo
@@ -230,7 +230,6 @@ def resource_comment():
 
     return json.dumps(ans)
 
-'''
 @app.route("/api/scholar/edit", methods=['POST'])
 def scholar_edit():
     data = json.loads(request.data)
@@ -275,6 +274,7 @@ def scholar_auth():
     return json.dumps(ans)
 
 
+'''
 @app.route("/api/scholar/manage", methods=['POST'])
 def scholar_manage():
     data = json.loads(request.data)
