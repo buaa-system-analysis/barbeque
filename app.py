@@ -26,6 +26,7 @@ PORT = 5015
 
 def write_log(data, ans, fun_name):
     log = {
+        'address': fun_name,
         'time': time.time(),
         'data': data,
         'ans': ans
