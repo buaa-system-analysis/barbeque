@@ -58,6 +58,8 @@ python app.py
 | collection_subscribe | /api/collection/subscribe | int userID <br> int scholarID <br> bool cmd（关注为True，取关为False） | bool flag | 100-正常 <br> 601-关注/取关失败 |
 | collection_paper | /api/collection/paper | int userID <br> int paperListID <br> int cmd（1为添加，0为删除） <br> int paperID | bool flag | 100-正常 <br> 602-添加/收藏文献失败 |
 | collection_manage | /api/collection/manage | int userID <br> int paperListID <br> int cmd（1为添加文献列表，2为删除文献列表，3为收藏文献列表） <br> string name（）cmd不为1时，该字段为'' | bool flag | 100-正常 <br> 603-文献管理操作失败 |
+| collection_get_paper_list | /api/collection/get_paper_list | int userID <br> int paperListID | list result | 100-正常 <br> 604-获取论文列表失败 |
+| collection_get_subscribe_list | /api/collection/get_subscribe_list | int userID | list result | 100-正常 <br> 605-获取订阅列表失败 |
 
 
 ## 状态码汇总
@@ -84,3 +86,5 @@ python app.py
 | 601 | 关注/取关失败 |
 | 602 | 添加/收藏文献失败 |
 | 603 | 文献管理操作失败 |
+| 604 | 获取论文列表失败 |
+| 605 | 获取订阅列表失败 |

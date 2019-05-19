@@ -8,7 +8,7 @@ from PaperControl import purchase, download
 from ResourceControl import comment, findComment
 from ScholarControl import editScholarInfo, authenticate, manageResource
 from SearchControl import searchPaper
-from CollectionControl import subscribe, manageCollection, collectPaper
+from CollectionControl import subscribe, manageCollection, collectPaper, getPaperList, getSubscribeList
 import pymongo
 import time
 
@@ -405,6 +405,52 @@ def collection_manage():
             "msg": "OK",
             "data": {
                 "flag": flag,
+            }
+        }
+    except Exception as e:
+        ans = error(e)
+
+    write_log(data, ans)
+
+    return json.dumps(ans)
+
+
+@app.route("/api/collection/get_paper_list", methods=['POST'])
+def collection_get_paper_list():
+    data = json.loads(request.data)
+    try:
+        code = 100
+        result = getPaperList(userID=data['userID'], paperListID=data['paperListID'])
+        if not result:
+            code = 604
+        ans = {
+            "code": code,
+            "msg": "OK",
+            "data": {
+                "result": result,
+            }
+        }
+    except Exception as e:
+        ans = error(e)
+
+    write_log(data, ans)
+
+    return json.dumps(ans)
+
+
+@app.route("/api/collection/get_subscribe_list", methods=['POST'])
+def collection_get_subscribe_list():
+    data = json.loads(request.data)
+    try:
+        code = 100
+        result = getSubscribeList(userID=data['userID'])
+        if not result:
+            code = 605
+        ans = {
+            "code": code,
+            "msg": "OK",
+            "data": {
+                "result": result,
             }
         }
     except Exception as e:
