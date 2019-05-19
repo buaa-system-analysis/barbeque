@@ -50,6 +50,7 @@ python app.py
 | paper_purchase | /api/paper/purchase | int userID <br> int paperID | bool flag | 100-正常 <br> 201-文献购买失败 |
 | paper_download | /api/user/download | int paperID | string url | 100-正常 <br> 202-文献下载失败 |
 | resource_comment | /api/resource/comment | int userID <br> int resourceID <br> string content | bool flag | 100-正常 <br> 301-评论失败 |
+| resource_get_comment | /api/resource/get_comment | int resourceID | list result | 100-正常 <br> 302-获取评论失败 |
 | scholar_edit | /api/scholar/edit | int scholarID <br> string name <br> string organization <br> string resourceField | bool flag | 100-正常 <br> 401-编辑学者失败 |
 | scholar_auth | /api/scholar/auth | int userID <br> string email | bool flag | 100-正常 <br> 402-学者认证失败 |
 | scholar_manage | /api/scholar/manage | int userID <br> int cmd <br> double newPrice | bool flag | 100-正常 <br> 403-资源管理操作失败 |
@@ -75,6 +76,7 @@ python app.py
 | 201 | 文献购买失败 |
 | 202 | 文献下载失败 |
 | 301 | 评论失败 |
+| 302 | 获取评论失败 |
 | 401 | 编辑学者失败 |
 | 402 | 学者认证失败 |
 | 403 | 资源管理操作失败 |

@@ -5,7 +5,7 @@ from flask_cors import CORS
 import json
 from UserControl import login, register, find, editInfo, changePassword
 from PaperControl import purchase, download
-from ResourceControl import comment
+from ResourceControl import comment, findComment
 from ScholarControl import editScholarInfo, authenticate, manageResource
 from SearchControl import searchPaper
 from CollectionControl import subscribe, manageCollection, collectPaper
@@ -28,10 +28,10 @@ def write_log(data, ans):
     logcol.insert_one(log)
 
 
-def error():
+def error(e):
     dic = {
         "code": 0,
-        "msg": "ERROR",
+        "msg": e,
         "data": {
         }
     }
@@ -62,8 +62,8 @@ def user_login():
                 "userID": userID,
             }
         }
-    except Exception:
-        ans = error()
+    except Exception as e:
+        ans = error(e)
 
     write_log(data, ans)
 
@@ -85,8 +85,8 @@ def user_register():
                 "userID": userID,
             }
         }
-    except Exception:
-        ans = error()
+    except Exception as e:
+        ans = error(e)
 
     write_log(data, ans)
 
@@ -108,8 +108,8 @@ def user_find():
                 "user": user,
             }
         }
-    except Exception:
-        ans = error()
+    except Exception as e:
+        ans = error(e)
 
     write_log(data, ans)
 
@@ -131,8 +131,8 @@ def user_edit_info():
                 "flag": flag,
             }
         }
-    except Exception:
-        ans = error()
+    except Exception as e:
+        ans = error(e)
 
     write_log(data, ans)
 
@@ -154,8 +154,8 @@ def user_change_pwd():
                 "flag": flag,
             }
         }
-    except Exception:
-        ans = error()
+    except Exception as e:
+        ans = error(e)
 
     write_log(data, ans)
 
@@ -177,8 +177,8 @@ def paper_purchase():
                 "flag": flag,
             }
         }
-    except Exception:
-        ans = error()
+    except Exception as e:
+        ans = error(e)
 
     write_log(data, ans)
 
@@ -200,8 +200,8 @@ def user_downloads():
                 "url": url,
             }
         }
-    except Exception:
-        ans = error()
+    except Exception as e:
+        ans = error(e)
 
     write_log(data, ans)
 
@@ -223,12 +223,36 @@ def resource_comment():
                 "flag": flag,
             }
         }
-    except Exception:
-        ans = error()
+    except Exception as e:
+        ans = error(e)
 
     write_log(data, ans)
 
     return json.dumps(ans)
+
+
+@app.route("/api/resource/get_comment", methods=['POST'])
+def resource_get_comment():
+    data = json.loads(request.data)
+    try:
+        code = 100
+        result = findComment(resourceID=data['resourceID'])
+        if not result:
+            code = 302
+        ans = {
+            "code": code,
+            "msg": "OK",
+            "data": {
+                "result": result,
+            }
+        }
+    except Exception as e:
+        ans = error(e)
+
+    write_log(data, ans)
+
+    return json.dumps(ans)
+
 
 @app.route("/api/scholar/edit", methods=['POST'])
 def scholar_edit():
@@ -245,8 +269,8 @@ def scholar_edit():
                 "flag": flag,
             }
         }
-    except Exception:
-        ans = error()
+    except Exception as e:
+        ans = error(e)
 
     return json.dumps(ans)
 
@@ -266,8 +290,8 @@ def scholar_auth():
                 "flag": flag,
             }
         }
-    except Exception:
-        ans = error()
+    except Exception as e:
+        ans = error(e)
 
     write_log(data, ans)
 
@@ -290,13 +314,14 @@ def scholar_manage():
                 "flag": flag,
             }
         }
-    except Exception:
-        ans = error()
+    except Exception as e:
+        ans = error(e)
 
     write_log(data, ans)
 
     return json.dumps(ans)
 '''
+
 
 @app.route("/api/search/paper", methods=['POST'])
 def search_paper():
@@ -313,8 +338,8 @@ def search_paper():
                 "result": result
             }
         }
-    except Exception, e:
-        ans = error()
+    except Exception as e:
+        ans = error(e)
 
     write_log(data, ans)
 
@@ -336,8 +361,8 @@ def collection_subscribe():
                 "flag": flag,
             }
         }
-    except Exception:
-        ans = error()
+    except Exception as e:
+        ans = error(e)
 
     write_log(data, ans)
 
@@ -359,8 +384,8 @@ def collection_paper():
                 "flag": flag,
             }
         }
-    except Exception:
-        ans = error()
+    except Exception as e:
+        ans = error(e)
 
     write_log(data, ans)
 
@@ -382,8 +407,8 @@ def collection_manage():
                 "flag": flag,
             }
         }
-    except Exception:
-        ans = error()
+    except Exception as e:
+        ans = error(e)
 
     write_log(data, ans)
 
