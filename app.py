@@ -11,6 +11,7 @@ from SearchControl import searchPaper
 from CollectionControl import subscribe, manageCollection, collectPaper, getPaperList, getSubscribeList
 import pymongo
 import time
+import sys
 
 myclient = pymongo.MongoClient('mongodb://106.14.150.33:27017')
 mydb = myclient["test"]
@@ -23,7 +24,7 @@ CORS(app, supports_credentials=True)
 PORT = 5015
 
 
-def write_log(data, ans):
+def write_log(data, ans, fun_name):
     log = {
         'time': time.time(),
         'data': data,
@@ -69,7 +70,7 @@ def user_login():
     except Exception as e:
         ans = error(e)
 
-    write_log(data, ans)
+    write_log(data, ans, sys._getframe().f_code.co_name)
 
     return json.dumps(ans)
 
@@ -92,7 +93,7 @@ def user_register():
     except Exception as e:
         ans = error(e)
 
-    write_log(data, ans)
+    write_log(data, ans, sys._getframe().f_code.co_name)
 
     return json.dumps(ans)
 
@@ -115,7 +116,7 @@ def user_find():
     except Exception as e:
         ans = error(e)
 
-    write_log(data, ans)
+    write_log(data, ans, sys._getframe().f_code.co_name)
 
     return json.dumps(ans)
 
@@ -138,7 +139,7 @@ def user_edit_info():
     except Exception as e:
         ans = error(e)
 
-    write_log(data, ans)
+    write_log(data, ans, sys._getframe().f_code.co_name)
 
     return json.dumps(ans)
 
@@ -161,7 +162,7 @@ def user_change_pwd():
     except Exception as e:
         ans = error(e)
 
-    write_log(data, ans)
+    write_log(data, ans, sys._getframe().f_code.co_name)
 
     return json.dumps(ans)
 
@@ -184,7 +185,7 @@ def paper_purchase():
     except Exception as e:
         ans = error(e)
 
-    write_log(data, ans)
+    write_log(data, ans, sys._getframe().f_code.co_name)
 
     return json.dumps(ans)
 
@@ -207,7 +208,7 @@ def user_downloads():
     except Exception as e:
         ans = error(e)
 
-    write_log(data, ans)
+    write_log(data, ans, sys._getframe().f_code.co_name)
 
     return json.dumps(ans)
 
@@ -230,7 +231,7 @@ def resource_comment():
     except Exception as e:
         ans = error(e)
 
-    write_log(data, ans)
+    write_log(data, ans, sys._getframe().f_code.co_name)
 
     return json.dumps(ans)
 
@@ -253,7 +254,7 @@ def resource_get_comment():
     except Exception as e:
         ans = error(e)
 
-    write_log(data, ans)
+    write_log(data, ans, sys._getframe().f_code.co_name)
 
     return json.dumps(ans)
 
@@ -297,7 +298,7 @@ def scholar_auth():
     except Exception as e:
         ans = error(e)
 
-    write_log(data, ans)
+    write_log(data, ans, sys._getframe().f_code.co_name)
 
     return json.dumps(ans)
 
@@ -321,7 +322,7 @@ def scholar_manage():
     except Exception as e:
         ans = error(e)
 
-    write_log(data, ans)
+    write_log(data, ans, sys._getframe().f_code.co_name)
 
     return json.dumps(ans)
 '''
@@ -345,7 +346,7 @@ def search_paper():
     except Exception as e:
         ans = error(e)
 
-    write_log(data, ans)
+    write_log(data, ans, sys._getframe().f_code.co_name)
 
     return json.dumps(ans)
 
@@ -368,7 +369,7 @@ def collection_subscribe():
     except Exception as e:
         ans = error(e)
 
-    write_log(data, ans)
+    write_log(data, ans, sys._getframe().f_code.co_name)
 
     return json.dumps(ans)
 
@@ -391,7 +392,7 @@ def collection_paper():
     except Exception as e:
         ans = error(e)
 
-    write_log(data, ans)
+    write_log(data, ans, sys._getframe().f_code.co_name)
 
     return json.dumps(ans)
 
@@ -414,7 +415,7 @@ def collection_manage():
     except Exception as e:
         ans = error(e)
 
-    write_log(data, ans)
+    write_log(data, ans, sys._getframe().f_code.co_name)
 
     return json.dumps(ans)
 
@@ -437,7 +438,7 @@ def collection_get_paper_list():
     except Exception as e:
         ans = error(e)
 
-    write_log(data, ans)
+    write_log(data, ans, sys._getframe().f_code.co_name)
 
     return json.dumps(ans)
 
@@ -460,7 +461,7 @@ def collection_get_subscribe_list():
     except Exception as e:
         ans = error(e)
 
-    write_log(data, ans)
+    write_log(data, ans, sys._getframe().f_code.co_name)
 
     return json.dumps(ans)
 
