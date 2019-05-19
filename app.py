@@ -24,7 +24,11 @@ PORT = 5015
 
 
 def write_log(data, ans):
-    log = {'time': time.time(), 'data': data, 'ans': ans}
+    log = {
+        'time': time.time(),
+        'data': data,
+        'ans': ans
+    }
     logcol.insert_one(log)
 
 
@@ -50,11 +54,11 @@ def user_login():
         code = 100
         userID = login(username=data['username'], password=data['password'])
         if not userID or userID == 0:
-            code = 111
+            code = 101
         if userID == -100:
-            code = 112
+            code = 102
         elif userID == -200:
-            code = 113
+            code = 103
         ans = {
             "code": code,
             "msg": "OK",
